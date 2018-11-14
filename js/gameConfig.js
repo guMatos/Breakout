@@ -2,7 +2,6 @@ var config = {
     type: Phaser.AUTO,
     width: 600,
     height: 300,
-    physics: {
     scene: [game]
 };
 
