@@ -1,3 +1,7 @@
+var player;
+var ball;
+var block;
+
 class game extends Phaser.Scene 
 {
     constructor()
@@ -12,6 +16,8 @@ class game extends Phaser.Scene
     
     create()
     {
+        console.log("Hello world!"); 
+        this.backgroundColor = blue;
         player = this.physics.add.sprite(50, 80, 'player');
         ball = this.physics.add.sprite(300, 150, 'ball');
         
@@ -20,6 +26,6 @@ class game extends Phaser.Scene
 
     update()
     {
-		
+        
     }
 }
