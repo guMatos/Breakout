@@ -3,13 +3,6 @@ var config = {
     width: 600,
     height: 300,
     physics: {
-        default: "arcade",
-        arcade: {
-            gravity: {
-                y: 1000,
-            }
-        }
-    },
     scene: [game]
 };
 
