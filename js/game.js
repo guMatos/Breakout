@@ -10,7 +10,6 @@ var config = {
         default: 'arcade',
         arcade: {
             gravity: {
-                y: 100
             }
         }
     },
@@ -34,17 +33,24 @@ function preload()
     this.load.image("block", "imagens/block.png");
 }
 
+function range(min, max)
+{
+    return parseInt(Math.random() * max + min);
+}
+
 function create()
 {
-    console.log("Hello world!"); 
-    this.backgroundColor = blue;
-    player = this.physics.add.image(50, 80, 'player');
-    ball = this.physics.add.image(300, 150, 'ball');
+    player = this.physics.add.image(400, 580, 'player');
+    player.body.setCollideWorldBounds(true);
+    
+    ball = this.physics.add.image(400, 300, 'ball');
+    this.physics.world.enable(ball);
+    ball.body.setVelocity(range(-250, 250), range(50, 250)).setBounce(1, 1).setCollideWorldBounds(true);
 
     this.physics.add.collider(ball, player);
 }
 
 function update()
 {
-
+    
 }
