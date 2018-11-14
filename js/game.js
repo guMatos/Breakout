@@ -5,12 +5,17 @@ class game extends Phaser.Scene
     
     preload()
     {
-		
+        this.load.image("player", "imagens/player.png");
+        this.load.image("ball", "imagens/ball.png");
+        this.load.image("block", "imagens/block.png");
     }
     
     create()
     {
-		
+        player = this.physics.add.sprite(50, 80, 'player');
+        ball = this.physics.add.sprite(300, 150, 'ball');
+        
+        this.physics.add.collider(ball, player);
     }
 
     update()
