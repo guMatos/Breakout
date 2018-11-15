@@ -34,6 +34,7 @@ function preload()
 
 function create()
 {
+    this.physics.world.checkCollision.down = false;
     var criar = this;
     
     block = this.add.group();  
@@ -42,14 +43,16 @@ function create()
         for (var j = 0; j < 4; j++) {
             var block = criar.add.image(50 + i * 75, 40 + j * 50, 'block');
             
-            criar.physics.world.enable( block );
-            block.body.setImmovable( true );
-            blocks[ pos++ ] = block;
+            criar.physics.world.enable(block);
+            block.body.setImmovable(true);
+            blocks[pos++] = block;
         }
     }
     
     player = this.physics.add.image(400, 580, 'player');
     player.body.setCollideWorldBounds(true);
+    player.body.setBounce(1);
+    player.body.setImmovable(true);
     
     ball = this.physics.add.image(400, 300, 'ball');
     ball.body.velocity.x = 200;
