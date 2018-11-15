@@ -1,10 +1,7 @@
-
-
 var config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    maxSafeDistance: 200,
     parent: 'colisao',
     physics: {
         default: 'arcade',
@@ -23,19 +20,15 @@ var config = {
 var game = new Phaser.Game(config);
 
 var player;
+var p_speed = 200;
 var ball;
 var block;
 
 function preload()
 {
-    this.load.image("player", "imagens/player.png");
-    this.load.image("ball", "imagens/ball.png");
-    this.load.image("block", "imagens/block.png");
-}
-
-function range(min, max)
-{
-    return parseInt(Math.random() * max + min);
+    this.load.image("player", "img/player.png");
+    this.load.image("ball", "img/ball.png");
+    this.load.image("block", "img/block.png");
 }
 
 function create()
@@ -44,13 +37,20 @@ function create()
     player.body.setCollideWorldBounds(true);
     
     ball = this.physics.add.image(400, 300, 'ball');
-    this.physics.world.enable(ball);
-    ball.body.setVelocity(range(-250, 250), range(50, 250)).setBounce(1, 1).setCollideWorldBounds(true);
 
     this.physics.add.collider(ball, player);
+    
+    cursors = this.input.keyboard.createCursorKeys();
 }
 
-function update()
-{
+function update(time, delta)
+{   
+    if (cursors.left.isDown) {
+        player.body.setVelocityX(-p_speed);
+    } else if (cursors.right.isDown) {
+        player.setVelocityX(p_speed);
+    } else {
+        player.setVelocityX(0);
+    }
     
 }
