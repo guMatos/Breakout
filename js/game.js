@@ -55,8 +55,8 @@ function create()
     player.body.setImmovable(true);
     
     ball = this.physics.add.image(400, 300, 'ball');
-    ball.body.velocity.x = 200;
-    ball.body.velocity.y = 200;
+    ball.body.velocity.x = 150;
+    ball.body.velocity.y = 150;
     ball.body.bounce.setTo(1); 
     ball.body.collideWorldBounds = true;
     
@@ -65,8 +65,8 @@ function create()
 
 function update(time, delta)
 {
-    this.physics.world.collide(ball, player,        function () {} );
-    this.physics.world.collide(ball, blocks,    function () {} );
+    this.physics.world.collide(ball, player,    function () {} );
+    this.physics.world.collide(ball, blocks,    function () { blocks.kill(); } );
     
     if (cursors.left.isDown) {
         player.body.setVelocityX(-p_speed);
@@ -74,6 +74,5 @@ function update(time, delta)
         player.setVelocityX(p_speed);
     } else {
         player.setVelocityX(0);
-    }
-    
+    } 
 }
