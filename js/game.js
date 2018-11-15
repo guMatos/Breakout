@@ -56,14 +56,15 @@ function create()
     ball.body.velocity.y = 200;
     ball.body.bounce.setTo(1); 
     ball.body.collideWorldBounds = true;
-
-    this.physics.add.collider(ball, player);
     
     cursors = this.input.keyboard.createCursorKeys();
 }
 
 function update(time, delta)
-{   
+{
+    this.physics.world.collide(ball, player,        function () {} );
+    this.physics.world.collide(ball, blocks,    function () {} );
+    
     if (cursors.left.isDown) {
         player.body.setVelocityX(-p_speed);
     } else if (cursors.right.isDown) {
