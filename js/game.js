@@ -22,7 +22,8 @@ var game = new Phaser.Game(config);
 var player;
 var p_speed = 200;
 var ball;
-var block;
+var blocks = new Array();
+var pos = 0;
 
 function preload()
 {
@@ -33,10 +34,28 @@ function preload()
 
 function create()
 {
+    var criar = this;
+    
+    block = this.add.group();  
+
+    for (var i = 0; i < 10; i++) {
+        for (var j = 0; j < 4; j++) {
+            var block = criar.add.image(50 + i * 75, 40 + j * 50, 'block');
+            
+            criar.physics.world.enable( block );
+            block.body.setImmovable( true );
+            blocks[ pos++ ] = block;
+        }
+    }
+    
     player = this.physics.add.image(400, 580, 'player');
     player.body.setCollideWorldBounds(true);
     
     ball = this.physics.add.image(400, 300, 'ball');
+    ball.body.velocity.x = 200;
+    ball.body.velocity.y = 200;
+    ball.body.bounce.setTo(1); 
+    ball.body.collideWorldBounds = true;
 
     this.physics.add.collider(ball, player);
     
