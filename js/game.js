@@ -20,10 +20,14 @@ var config = {
 var game = new Phaser.Game(config);
 
 var player;
-var p_speed = 200;
+var p_speed = 250;
 var ball;
 var blocks = new Array();
 var pos = 0;
+
+var random;
+
+var txt;
 
 function preload()
 {
@@ -34,6 +38,9 @@ function preload()
 
 function create()
 {
+    // retorna um número inteiro entre 0 e 1
+    random = Math.floor(Math.random() * 2);
+    
     //definindo que não tem colisão em baixo
     this.physics.world.checkCollision.down = false;
     
@@ -55,8 +62,14 @@ function create()
     
     //cria a bola
     ball = this.physics.add.image(400, 300, 'ball');
-    ball.body.velocity.x = 150;
-    ball.body.velocity.y = 150;
+    if(random == 0){
+        ball.body.velocity.x = 150;
+        ball.body.velocity.y = 150;
+    }else{
+        ball.body.velocity.x = -150;
+        ball.body.velocity.y = 150;
+    }
+    
     ball.body.bounce.setTo(1); 
     ball.body.collideWorldBounds = true;
     
@@ -77,17 +90,28 @@ function update(time, delta)
         player.setVelocityX(p_speed);
     } else {
         player.setVelocityX(0);
-    } 
+    }
 }
 
 function collideplayer(ball, player)
 {
     //definir o que acontece se colidir na esquerda, direita e meio
-    console.log("colidiu com o player");
+    var dif;
+
+    if(ball.x < player.x){
+        dif = player.x - ball.x;
+        ball.body.velocity.x = (-10 * dif);
+        return;
+    }
+    if(ball.x > player.x){
+        dif = ball.x - player.x;
+        ball.body.velocity.x = (10 * dif);
+        return;
+    }
 }
 
 function collideblock(ball, blocks)
 {
     //definir que o block some
-    console.log("colidiu com o bloco");
+    blocks.destroy();
 }
